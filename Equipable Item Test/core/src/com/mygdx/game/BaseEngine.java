@@ -33,7 +33,10 @@ public final class BaseEngine extends ApplicationAdapter {
     private ModelInstance sword;
     private AnimationController animationController;
 
+    private boolean flag;
+
     public BaseEngine() {
+        this.flag = true;
     }
 
     @Override
@@ -71,7 +74,7 @@ public final class BaseEngine extends ApplicationAdapter {
         this.character = new ModelInstance(mngr.get("character.g3dj", Model.class));
         this.animationController = new AnimationController(character);
         this.sword = new ModelInstance(mngr.get("sword.obj", Model.class));
-        
+
         displayNodes(character.nodes);
     }
 
@@ -86,7 +89,8 @@ public final class BaseEngine extends ApplicationAdapter {
         this.animationController.update(Gdx.graphics.getDeltaTime());
 
         if (Gdx.input.isKeyJustPressed(Keys.SPACE)) {
-            this.animationController.action("atk 1", 1, 1, null, 0.2f);
+            this.animationController.action(flag ? "atk 1" : "atk 2", 1, 1, null, 0.2f);
+            this.flag = !flag;
         } else if (!animationController.inAction) {
             this.animationController.animate("idle", 1, 1, null, 0.2f);
         }

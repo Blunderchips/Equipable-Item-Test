@@ -25,6 +25,8 @@ public final class DesktopLauncher {
         LwjglApplicationConfiguration cfg
                 = new LwjglApplicationConfiguration();
 
+        cfg.title = "Equipable-Item-Test";
+        
         cfg.width = 800;
         cfg.height = 450;
 
