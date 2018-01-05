@@ -1,6 +1,6 @@
 # Equipable Item Test
 
-<h2>Press Space to play an aimation. Use mouse to move the camera around</h2>
+<h2>Press Space to play an aimation. Use mouse to move the camera around.</h2>
 
 Character Model is from mixamo.com.
 
