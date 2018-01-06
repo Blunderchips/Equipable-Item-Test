@@ -41,7 +41,12 @@ public final class BaseEngine extends ApplicationAdapter {
 
     @Override
     public void create() {
-        Gdx.gl.glClearColor(1, 1, 1, 1);
+        Gdx.gl.glClearColor(
+                240 / 255f,
+                240 / 255f,
+                240 / 255f,
+                1
+        );
 
         final float width = Gdx.graphics.getWidth();
         final float height = Gdx.graphics.getHeight();
@@ -89,20 +94,23 @@ public final class BaseEngine extends ApplicationAdapter {
         this.animationController.update(Gdx.graphics.getDeltaTime());
 
         if (Gdx.input.isKeyJustPressed(Keys.SPACE)) {
-            this.animationController.action(flag ? "atk 1" : "atk 2", 1, 1, null, 0.2f);
+            this.animationController.action(flag ? "atk 1" : "atk 2", 1, 0.5f, null, 0.2f);
             this.flag = !flag;
         } else if (!animationController.inAction) {
-            this.animationController.animate("idle", 1, 1, null, 0.2f);
+            this.animationController.animate("idle", -1, 1, null, 0.2f);
         }
 
-        Matrix4 matA = new Matrix4().set(character.transform.getRotation(new Quaternion()))
+        Matrix4 matA = new Matrix4().set(character.transform.getRotation(new Quaternion(), true))
                 .setTranslation(character.transform.getTranslation(new Vector3()));
 
-        Matrix4 matB = new Matrix4().setTranslation(character.getNode(
-                "mixamorig:RightHand").globalTransform.getTranslation(new Vector3()));
+        Node attachNode = character.getNode("mixamorig:RightHandPinky4");
+        Matrix4 matB = new Matrix4().set(attachNode.globalTransform.getRotation(new Quaternion(), true))
+                .setTranslation(attachNode.globalTransform.getTranslation(new Vector3()));
 
         Matrix4 mat = new Matrix4();
         mat.set(matA).mul(matB);
+
+        mat.rotate(Vector3.X, 90);
 
         sword.transform.set(mat);
         //</editor-fold>
